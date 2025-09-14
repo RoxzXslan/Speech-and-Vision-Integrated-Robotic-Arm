@@ -1,4 +1,4 @@
-# 🤖 Speech and Vision Integrated Robotic Arm
+# 🤖 Speech & Vision Integrated Robotic Arm
 
 A robotic arm controlled via Speech / Manual designed for object manipulation.
 
