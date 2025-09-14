@@ -1,6 +1,6 @@
 # 🤖 Speech and Vision Integrated Robotic Arm
 
-A DIY robotic arm controlled via Speech / Manual designed for object manipulation.
+A robotic arm controlled via Speech / Manual designed for object manipulation.
 
 ## 🚀 Features
 
