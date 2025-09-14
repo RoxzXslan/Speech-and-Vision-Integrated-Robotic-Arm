@@ -11,3 +11,6 @@ pip3 install numpy SpeechRecognition openai-whisper torch keyboard
 
 #After installing Ollama
 ollama pull {model-versions}
+
+#before running any models - llama / gemma - run
+ollama serve
