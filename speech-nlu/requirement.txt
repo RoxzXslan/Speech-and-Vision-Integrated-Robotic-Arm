@@ -8,3 +8,6 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 # Install Python requirements
 pip3 install numpy SpeechRecognition openai-whisper torch keyboard
+
+#After installing Ollama
+ollama pull {model-versions}
