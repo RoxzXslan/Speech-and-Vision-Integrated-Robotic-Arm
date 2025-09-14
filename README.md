@@ -18,7 +18,7 @@ A robotic arm controlled via Speech / Manual designed for object manipulation.
 ## 📂 Project Structure
 
 ```bash
-robotic-arm/
+robotic-arm/ # ros2 project files
 ├── launch
 ├── meshes
 ├── urdf
