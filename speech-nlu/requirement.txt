@@ -1,0 +1,10 @@
+# requirements 
+
+# Update system and install dependencies
+sudo apt update && sudo apt install -y python3 python3-pip git
+
+# Install Ollama (needed for llama/gemma models)
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Install Python requirements
+pip3 install numpy SpeechRecognition openai-whisper torch keyboard
