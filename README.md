@@ -19,7 +19,7 @@ A DIY robotic arm controlled via Speech / Manual designed for object manipulatio
 
 ```bash
 robotic-arm/
-├── code/           # Source code
-├── hardware/       # CAD files, schematics
-├── docs/           # Documentation
-└── ...
+├── launch
+├── meshes
+├── urdf
+├── ...
