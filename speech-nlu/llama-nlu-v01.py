@@ -29,6 +29,7 @@ def extract_intent(text):
     Sentence: "{text}" 
     JSON: 
     """
+    # ollama for using llama / gemma
     result = subprocess.run(
         # ["ollama", "run", "llama3.2:1b"],
         ["ollama", "run", "llama3.2"],
@@ -49,3 +50,4 @@ ls = ["get a pen", "find a animal",  "search for a green apple", "grab a red bal
 for l in ls:
     print(extract_intent(l))
 '''
+
