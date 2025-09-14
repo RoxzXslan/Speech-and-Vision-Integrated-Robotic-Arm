@@ -25,7 +25,7 @@ def main():
     recognizer.energy_threshold = 1000
     recognizer.dynamic_energy_threshold = False
 
-    # Select microphone
+    # Microphone
     if 'linux' in platform:
         mic_name = args.default_microphone
         if not mic_name or mic_name == 'list':
@@ -41,7 +41,7 @@ def main():
     else:
         source = sr.Microphone(sample_rate=16000)
 
-    # Load Whisper model
+    # Whisper model
     model_name = args.model
     if model_name != "large" and not args.non_english:
         model_name += ".en"
@@ -57,7 +57,7 @@ def main():
 
     while True:
         try:
-            # Wait for spacebar press
+            # Spacebar to execute
             keyboard.wait("space")
             print("🎤 Recording... (release to stop)")
             with source:
@@ -85,3 +85,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
