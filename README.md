@@ -23,3 +23,6 @@ robotic-arm/ # ros2 project files
 ├── meshes
 ├── urdf
 ├── ...
+
+speech-nlu/ # py scripts for speech recognition & nlu processing
+├── ...
