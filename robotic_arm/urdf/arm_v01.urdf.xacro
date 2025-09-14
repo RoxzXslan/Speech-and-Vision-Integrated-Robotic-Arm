@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="robotic_arm">
+
+  <!-- Properties -->
+  <xacro:property name="mesh_dir" value="package://robotic_arm/meshes"/>
+
+  <!-- Color Properties -->
+  <xacro:property name="grey" value="0.6 0.6 0.6 1.0"/>
+  <xacro:property name="red" value="1.0 0.0 0.0 1.0"/>
+  <xacro:property name="blue" value="0.0 0.0 1.0 1.0"/>
+  <xacro:property name="green" value="0.0 1.0 0.0 1.0"/>
+  <xacro:property name="black" value="0.0 0.0 0.0 1.0"/>
+  <xacro:property name="white" value="1.0 1.0 1.0 1.0"/>
+  <xacro:property name="yellow" value="1.0 1.0 0.0 1.0"/>
+  <xacro:property name="orange" value="1.0 0.65 0.0 1.0"/>
+  <xacro:property name="purple" value="0.5 0.0 0.5 1.0"/>
+  <xacro:property name="cyan" value="0.0 1.0 1.0 1.0"/>
+  <xacro:property name="magenta" value="1.0 0.0 1.0 1.0"/>
+  <xacro:property name="brown" value="0.6 0.3 0.0 1.0"/>
+  <xacro:property name="pink" value="1.0 0.75 0.8 1.0"/>
+  <xacro:property name="light_grey" value="0.8 0.8 0.8 1.0"/>
+  <xacro:property name="dark_grey" value="0.3 0.3 0.3 1.0"/>
+
+
+  <!-- Link Macro -->
+  <xacro:macro name="visual_link" params="link_name mesh_filename material_name color_value mass">
+    <link name="${link_name}">
+      <visual>
+        <geometry>
+          <mesh filename="${mesh_dir}/${mesh_filename}" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="${material_name}">
+          <color rgba="${color_value}"/>
+        </material>
+      </visual>
+
+      <collision>
+        <geometry>
+          <mesh filename="${mesh_dir}/${mesh_filename}" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${mass}"/>
+        <inertia 
+          ixx="0.01" ixy="0.0" ixz="0.0"
+          iyy="0.01" iyz="0.0"
+          izz="0.01"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <!-- Links -->
+
+  <!-- Dummy parent link -->
+  <link name="world_link"/>
+
+  <!-- Base Link -->
+  <xacro:visual_link 
+    link_name="base_link" 
+    mesh_filename="base-link-arm.stl" 
+    material_name="Grey" 
+    color_value="${grey}" 
+    mass="1.0"/>
+
+  <!-- Rotating Link -->
+  <xacro:visual_link 
+    link_name="rot_link" 
+    mesh_filename="rot-base-arm.stl" 
+    material_name="Blue" 
+    color_value="${blue}" 
+    mass="0.5"/>
+
+  <!-- Shoulder Link-->
+  <xacro:visual_link
+    link_name="shoulder_link"
+    mesh_filename="shoulder-arm.stl"
+    material_name="Green"
+    color_value="${green}"
+    mass="0.5"/>
+  
+  <!-- Elbow Link-->
+  <xacro:visual_link
+    link_name="elbow_link"
+    mesh_filename="elbow-arm.stl"
+    material_name="Purple"
+    color_value="${purple}"
+    mass="0.5"/>
+
+  <!-- Gripper Base Link-->
+  <xacro:visual_link
+    link_name="grip_base_link"
+    mesh_filename="grip-base.stl"
+    material_name="Orange"
+    color_value="${orange}"
+    mass="0.5"/>
+
+  <!-- Gripper Gear Left Link-->
+  <xacro:visual_link
+    link_name="grip_gl_link"
+    mesh_filename="grip-gl.stl"
+    material_name="Cyan"
+    color_value="${cyan}"
+    mass="0.5"/>
+  
+  <!-- Gripper Gear Right Link-->
+  <xacro:visual_link
+    link_name="grip_gr_link"
+    mesh_filename="grip-gr.stl"
+    material_name="Cyan"
+    color_value="${cyan}"
+    mass="0.5"/>
+
+  <!-- Gripper Support Left Link-->
+  <xacro:visual_link
+    link_name="grip_spl_link"
+    mesh_filename="grip-sp.stl"
+    material_name="White"
+    color_value="${white}"
+    mass="0.5"/>
+  
+  <!-- Gripper Support Right Link-->
+  <xacro:visual_link
+    link_name="grip_spr_link"
+    mesh_filename="grip-sp.stl"
+    material_name="White"
+    color_value="${white}"
+    mass="0.5"/>
+
+  <!-- Gripper Hold Left Link-->
+  <xacro:visual_link
+    link_name="grip_hl_link"
+    mesh_filename="grip-hr.stl"
+    material_name="Magenta"
+    color_value="${magenta}"
+    mass="0.5"/>
+
+  <!-- Gripper Hold Right Link-->
+  <xacro:visual_link
+    link_name="grip_hr_link"
+    mesh_filename="grip-hr.stl"
+    material_name="Magenta"
+    color_value="${magenta}"
+    mass="0.5"/>
+
+
+
+  <!-- Joints -->
+
+  <!-- Shift base_link upward by 0.5m -->
+  <joint name="world_to_base" type="fixed">
+    <parent link="world_link"/>
+    <child link="base_link"/> 
+    <origin xyz="0 0 0.073" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Revolute Joint between base_link and rot_link -->
+  <joint name="base_to_rot" type="revolute">
+    <parent link="base_link"/>
+    <child link="rot_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-3.14" upper="3.14"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <!-- Revolute Joint between rot_link and shoulder_link -->
+  <joint name="rot_to_shoulder" type="revolute">
+    <parent link="rot_link"/>
+    <child link="shoulder_link"/>
+    <origin xyz="-0.02359 0.0115 0.05159" rpy="-1.57 1.57 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-1.047" upper="1.57"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <!-- Revolute Joint between shoulder_link and elbow_link -->
+  <joint name="shoulder_to_elbow" type="revolute">
+    <parent link="shoulder_link"/>
+    <child link="elbow_link"/>
+    <origin xyz="-0.11 0 0" rpy="3.14 0 1.57"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-0.785" upper="1.57"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <!-- Fixed Joint between elbow_link and grip_base_link -->
+  <joint name="elbow_to_grip_base" type="fixed">
+    <parent link="elbow_link"/>
+    <child link="grip_base_link"/> 
+    <origin xyz="-0.133 0.0105 0.015" rpy="0 -1.57 1.57"/>
+  </joint>
+
+  <!-- Revolute Joint between grip_base_link and grip_gl_link -->
+  <joint name="grip_base_to_gl" type="revolute">
+    <parent link="grip_base_link"/>
+    <child link="grip_gl_link"/>
+    <origin xyz="-0.0135 0.0376 0.006" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="0" upper="1.9"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <!-- Revolute Joint between grip_base_link and grip_gr_link -->
+  <joint name="grip_base_to_gr" type="revolute">
+    <parent link="grip_base_link"/>
+    <child link="grip_gr_link"/>
+    <origin xyz="0.0135 0.0376 0.009" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-3.14" upper="3.14"/>
+    <dynamics damping="0.1" friction="0.1"/>
+    <mimic joint="grip_base_to_gl" multiplier="-1" offset="0"/>
+  </joint>
+
+  <!-- Revolute Joint between grip_base_link and grip_spl_link -->
+  <joint name="grip_base_to_spl" type="revolute">
+    <parent link="grip_base_link"/>
+    <child link="grip_spl_link"/>
+    <origin xyz="-0.00524 0.058 0.009" rpy="0 0 1.57"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-3.14" upper="3.14"/>
+    <dynamics damping="0.1" friction="0.1"/>
+    <mimic joint="grip_base_to_gl" multiplier="1" offset="0"/>
+  </joint>
+
+  <!-- Revolute Joint between grip_base_link and grip_spr_link -->
+  <joint name="grip_base_to_spr" type="revolute">
+    <parent link="grip_base_link"/>
+    <child link="grip_spr_link"/>
+    <origin xyz="0.00524 0.058 0.009" rpy="0 0 1.57"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-3.14" upper="3.14"/>
+    <dynamics damping="0.1" friction="0.1"/>
+    <mimic joint="grip_base_to_gl" multiplier="-1" offset="0"/>
+  </joint>
+
+  <!-- Revolute Joint between grip_gl_link and grip_hl_link -->
+  <joint name="grip_gl_to_hl" type="revolute">
+    <parent link="grip_gl_link"/>
+    <child link="grip_hl_link"/>
+    <origin xyz="0 0.031 0" rpy="0 0 1.186"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-3.14" upper="3.14"/>
+    <dynamics damping="0.1" friction="0.1"/>
+    <mimic joint="grip_base_to_gl" multiplier="-1" offset="0"/>
+  </joint>
+
+  <!-- Revolute Joint between grip_gr_link and grip_hr_link -->
+  <joint name="grip_gr_to_hr" type="revolute">
+    <parent link="grip_gr_link"/>
+    <child link="grip_hr_link"/>
+    <origin xyz="0 0.031 -0.009" rpy="0 3.14 -1.186"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-3.14" upper="3.14"/>
+    <dynamics damping="0.1" friction="0.1"/>
+    <mimic joint="grip_base_to_gl" multiplier="-1" offset="0"/>
+  </joint> 
+
+  
+
+</robot>
