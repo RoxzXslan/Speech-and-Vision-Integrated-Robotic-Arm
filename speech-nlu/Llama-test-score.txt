@@ -1,0 +1,81 @@
+﻿Extracting intents: 100%|##########| 100/100 [02:22<00:00,  1.42s/it]
+
+=== Overall Intent Accuracy ===
+99.00%
+
+=== Action Classification Report ===
+              precision    recall  f1-score   support
+
+       bring       1.00      1.00      1.00        20
+        find       1.00      1.00      1.00        20
+         get       1.00      1.00      1.00        20
+      locate       1.00      1.00      1.00        20
+        pick       1.00      1.00      1.00        20
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+
+=== Object Classification Report ===
+              precision    recall  f1-score   support
+
+        ball       1.00      1.00      1.00        12
+        book       1.00      1.00      1.00         9
+      bottle       1.00      1.00      1.00         9
+         box       1.00      1.00      1.00         6
+       chair       1.00      1.00      1.00        12
+         cup       1.00      1.00      1.00         7
+         key       1.00      1.00      1.00         8
+         pen       1.00      1.00      1.00        11
+       phone       1.00      1.00      1.00        10
+         toy       1.00      1.00      1.00        16
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+
+=== Colour Classification Report ===
+              precision    recall  f1-score   support
+
+       black       1.00      1.00      1.00        16
+        blue       1.00      1.00      1.00        16
+       green       1.00      1.00      1.00        16
+        none       1.00      1.00      1.00         4
+         red       1.00      1.00      1.00        16
+       white       1.00      1.00      1.00        16
+      yellow       1.00      1.00      1.00        16
+
+    accuracy                           1.00       100
+   macro avg       1.00      1.00      1.00       100
+weighted avg       1.00      1.00      1.00       100
+
+
+=== Action Confusion Matrix ===
+[[20  0  0  0  0]
+ [ 0 20  0  0  0]
+ [ 0  0 20  0  0]
+ [ 0  0  0 20  0]
+ [ 0  0  0  0 20]]
+
+=== Object Confusion Matrix ===
+[[ 9  0  0  0  0  0  0  0  0  0]
+ [ 0  7  0  0  0  0  0  0  0  0]
+ [ 0  0  6  0  0  0  0  0  0  0]
+ [ 0  0  0 16  0  0  0  0  0  0]
+ [ 0  0  0  0  8  0  0  0  0  0]
+ [ 0  0  0  0  0 10  0  0  0  0]
+ [ 0  0  0  0  0  0 12  0  0  0]
+ [ 0  0  0  0  0  0  0 12  0  0]
+ [ 0  0  0  0  0  0  0  0 11  0]
+ [ 0  0  0  0  0  0  0  0  0  9]]
+
+=== Colour Confusion Matrix ===
+[[16  0  0  0  0  0  0]
+ [ 0  4  0  0  0  0  0]
+ [ 0  0 16  0  0  0  0]
+ [ 0  0  0 16  0  0  0]
+ [ 0  0  0  0 16  0  0]
+ [ 0  0  0  0  0 16  0]
+ [ 0  0  0  0  0  0 16]]
